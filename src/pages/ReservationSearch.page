@@ -1,0 +1,29 @@
+<apex:page controller="ReservationSearchC" tabStyle="Reservation__c" showHeader="true" sidebar="false" >
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock title="Search Criteria">
+             <apex:pageBlockSection >
+                 <apex:inputText value="{!reservationNum}" label="Reservation Number"/>
+                 <apex:inputText value="{!celebrityName}" label="Celebrity Name"/>
+                 <apex:inputText value="{!destination}" label="Destination"/>
+                 <apex:inputText value="{!city}" label="Origin City"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                    <apex:commandButton action="{!search}" value="Search"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        <apex:pageBlock title="Search Result">
+            <apex:pageBlockTable value="{!searchResults}" var="res" rendered="{!searchResults.size > 0}">
+                <apex:column title="Reservation Number">
+                    <apex:outputLink value="/{!res.Id}" target="_blank">{!res.name}</apex:outputLink>
+                </apex:column>                        
+                <apex:column title="Celebrity">
+                    <apex:outputLink onmouseover="" value="/{!res.Celebrity__c}" target="_blank">{!res.celebrity__r.name}</apex:outputLink>
+                </apex:column>
+                <apex:column title="Destination" value="{!res.Destination__c}"/>
+                <apex:column title="Origin City" value="{!res.City__c}"/>
+                <apex:column title="Status" value="{!res.Status__c}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>    
+</apex:page>

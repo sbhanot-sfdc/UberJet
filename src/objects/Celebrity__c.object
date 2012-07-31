@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Handler__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>The person who deals with the celebrity&apos;s shenanigans.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The person who deals with the celebrity&apos;s shenanigans.</inlineHelpText>
+        <label>Handler</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Celebrities</relationshipLabel>
+        <relationshipName>Celebrities</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Miles_Travelled__c</fullName>
+        <externalId>false</externalId>
+        <label># of Miles Travelled</label>
+        <summarizedField>Reservation__c.num_of_Miles__c</summarizedField>
+        <summaryFilterItems>
+            <field>Reservation__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Completed</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Reservation__c.Celebrity__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Reservations__c</fullName>
+        <externalId>false</externalId>
+        <label># of Reservations</label>
+        <summaryFilterItems>
+            <field>Reservation__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Completed</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Reservation__c.Celebrity__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Reward_Level__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(
+     AND(Number_of_Miles_Travelled__c &lt; 100, Number_of_Reservations__c &lt; 1),  
+               &quot;Member&quot;, 
+     IF(
+          AND(Number_of_Miles_Travelled__c &lt;= 1000, Number_of_Reservations__c &lt;= 10),  
+                    IMAGE(&quot;/servlet/servlet.ImageServer?id=015d0000000cJSO&amp;oid=00Dd0000000eziQ&quot;, &quot;Bronze&quot;) , 
+          IF(
+               AND(Number_of_Miles_Travelled__c &lt;= 10000, Number_of_Reservations__c &lt;= 150), 
+                         IMAGE(&quot;/servlet/servlet.ImageServer?id=015d0000000cJSJ&amp;oid=00Dd0000000eziQ&quot;, &quot;Silver&quot;), 
+               IF(
+                   AND(Number_of_Miles_Travelled__c &lt;= 100000, Number_of_Reservations__c &lt;= 200), 
+                             IMAGE(&quot;/servlet/servlet.ImageServer?id=015d0000000cJSE&amp;oid=00Dd0000000eziQ&quot;, &quot;Gold&quot;) ,
+               null
+                    )
+               )
+          )
+    )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Frequent Flyer Reward Level</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>iStockPhoto__c</fullName>
+        <externalId>false</externalId>
+        <label>iStockPhoto</label>
+        <length>32768</length>
+        <trackHistory>true</trackHistory>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <label>Celebrity</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>iStockPhoto__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Celebrity Name</label>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Celebrities</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+</CustomObject>
